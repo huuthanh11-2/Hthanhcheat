@@ -1,0 +1,502 @@
+<!-- ======= THÊM KEY Ở ĐÂY ============== -->
+<script>
+    // hãy nhập key mà bạn muốn ở đây
+    const validKeys = ["1"];
+</script>
+<!-- 
+    Muốn chuyển thành File cấu hình iOS 
+    Hoặc thêm tính năng gì (phí nhẹ)
+    ib Telegram https://t.me/ghen1234g 
+-->
+
+
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chức Năng Game — Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1113;
+      --card: #121315;
+      --muted: #9aa0a6;
+      --highlight-border: #1e90ff;   
+      --toggle-bg: #0f1113;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body, html {
+      height: 100%;
+      font-family: Inter, system-ui, Arial;
+      color: #fff;
+      overflow-x: hidden;
+      background-color: var(--bg);
+    }
+
+    body {
+      background: url("https://v1.pinimg.com/videos/mc/720p/04/16/a5/0416a538a33dc1988e9207696cb63c78.mp4") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      max-width: 420px;
+      width: 100%;
+      margin: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-wrap {
+      background: linear-gradient(135deg, #0a2a6b, #1e90ff);
+      padding: 14px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      box-shadow: 0 10px 28px rgba(30,144,255,0.35), 
+                  0 0 22px rgba(30,144,255,0.45);
+    }
+
+    .logo { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0,0,0,0.6);}
+    .logo img { width: 60%; height: 60%; object-fit: contain; }
+
+    .header-text h1 { font-size: 20px; margin: 0; }
+    .header-text small { font-size: 13px; color: #eaf4ff; margin-top: 2px; display: block; }
+
+    .card {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 18px;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
+      width: 100%;
+      backdrop-filter: blur(6px);
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--highlight-border);
+      box-shadow: 0 0 12px rgba(30,144,255,0.4);
+    }
+
+    .left { display: flex; align-items: center; gap: 12px; }
+    .icon { width: 80px; height: 53px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .icon img { width: 94%; height: 90%; object-fit: contain; }
+
+    .text { min-width: 0; }
+    .title { font-weight: 600; margin: 0; font-size: 16px; }
+    .desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+    .toggle-wrap { position: relative; }
+    .toggle {
+      width: 52px;
+      height: 30px;
+      border-radius: 999px;
+      background: #0b0c0d; 
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      cursor: pointer;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .knob {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #fff;
+      transform: translateX(0);
+      transition: transform 0.2s cubic-bezier(.2,.9,.3,1), box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px rgba(2,6,23,0.6);
+    }
+    .toggle.on {
+      background: linear-gradient(90deg, #0d47a1, #1976d2, #42a5f5);
+      box-shadow: 0 0 12px rgba(33,150,243,0.75), 0 0 28px rgba(33,150,243,0.35);
+    }
+    .toggle.on .knob {
+      transform: translateX(22px);
+      box-shadow: 0 0 10px rgba(66,165,245,0.9), 0 6px 14px rgba(2,6,23,0.6);
+    }
+
+    .key-section {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 14px;
+      margin-top: 20px;
+      border-radius: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border: 1px solid var(--highlight-border);
+      box-shadow: 0 0 12px rgba(30,144,255,0.4);
+    }
+    .key-section .input-group { display: flex; gap: 12px; align-items: center; }
+
+    .input-group input {
+      padding: 10px;
+      border-radius: 8px;
+      background: #121315;
+      border: 1px solid var(--highlight-border);
+      color: #fff;
+      width: 100%;
+    }
+    .input-group button { padding: 10px; border-radius: 8px; background: #1e90ff; border: none; color: #fff; cursor: pointer; }
+    .input-group button:hover { background: #0a6ed1; }
+
+    .error-msg { color: #ff4c4c; font-weight: 600; margin-top: 10px; display: none; }
+    .success-msg { color: #3fe6a7; font-weight: 600; margin-top: 10px; display: none; }
+
+    @media (max-width: 420px) {
+      .container { padding: 0 12px; }
+      .card { padding: 12px; }
+    }
+
+    /* sao nhỏ */
+    .star {
+      position: absolute;
+      font-size: 16px;
+      color: #ffd700;
+      text-shadow: 0 0 6px #fff, 0 0 12px #ffdd55, 0 0 18px #ffaa00;
+      pointer-events: none;
+      opacity: 0;
+      animation: star-fly 1s ease-out forwards;
+    }
+
+    @keyframes star-fly {
+      0%   { transform: scale(0.5) translate(0,0); opacity: 1; }
+      80%  { opacity: 1; }
+      100% { transform: scale(0.8) translate(var(--dx), var(--dy)); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-wrap">
+      <div class="logo">
+        <img src="https://i.postimg.cc/1tXmNhsB/58023179-26-D9-42-F1-81-B7-35-F40-CDDF716.jpg" alt="logo">
+      </div>
+      <div class="header-text">
+        <h1>App hack ht modz</h1>
+        <small>© hthanhcheat</small>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="item">
+        <div class="left">
+          <div class="icon"><img src="https://i.postimg.cc/VvwgBg8C/A5-CD186-E-C2-E1-44-BD-9-E55-C763321-D5-F60.png" alt="desert"></div>
+          <div class="text">
+            <div class="title">DESERT EAGLE</div>
+            <div class="desc">hỗ trợ độ bám tâm 100%</div>
+          </div>
+        </div>
+        <div class="toggle-wrap"><div class="toggle" data-gun="DESERT EAGLE"><div class="knob"></div></div></div>
+      </div>
+
+      <div class="item">
+        <div class="left">
+          <div class="icon"><img src="https://i.postimg.cc/HnsgvQ0r/863-EBF06-16-F5-4-B32-84-E7-55-A8125-EC123.png" alt="ump"></div>
+          <div class="text">
+            <div class="title">UMP Tiểu Liên</div>
+            <div class="desc">hỗ trợ nhạy tâm 100%</div>
+          </div>
+        </div>
+        <div class="toggle-wrap"><div class="toggle" data-gun="UMP"><div class="knob"></div></div></div>
+      </div>
+
+      <div class="item">
+        <div class="left">
+          <div class="icon"><img src="https://i.postimg.cc/TPWBttZ7/6819-E4-BF-FF6-B-4345-B17-E-6-ADAAC4-D3655.png" alt="m1887"></div>
+          <div class="text">
+            <div class="title">Shotgun M1887</div>
+            <div class="desc">đầm tâm khi kéo 100%</div>
+          </div>
+        </div>
+        <div class="toggle-wrap"><div class="toggle" data-gun="M1887"><div class="knob"></div></div></div>
+      </div>
+
+      <div class="item">
+        <div class="left">
+          <div class="icon"><img src="https://i.postimg.cc/T3xczCLN/9-F5-A56-B8-0-B31-4934-8-A45-16-C9196-A97-C7.png" alt="mp40"></div>
+          <div class="text">
+            <div class="title">MP40 Tiểu liên</div>
+            <div class="desc">Giảm loạn tâm khi kéo 100%</div>
+          </div>
+        </div>
+        <div class="toggle-wrap"><div class="toggle" data-gun="MP40"><div class="knob"></div></div></div>
+      </div>
+
+      <div class="item">
+        <div class="left">
+          <div class="icon"><img src="https://i.postimg.cc/h45DZ5wg/A9-B7-A14-C-9497-4290-94-DF-2-F7-DB04-D9-E40.png" alt="recoil"></div>
+          <div class="text">
+            <div class="title">Tâm ảo Aim</div>
+            <div class="desc">Hồng tâm hỗ trợ ngắm</div>
+          </div>
+        </div>
+        <div class="toggle-wrap"><div class="toggle" data-gun="Recoil"><div class="knob"></div></div></div>
+      </div>
+    </div>
+
+    <div class="key-section">
+      <div class="input-group">
+        <input type="password" id="keyInput" placeholder="Nhập Key Kích hoạt Menu ">
+        <button id="activateKey">Kích Hoạt</button>
+      </div>
+      <div id="errorMessage" class="error-msg">Sai Key. Vui lòng thử lại!</div>
+      <div id="successMessage" class="success-msg">Thông báo: Kích hoạt thành công!</div>
+    </div>
+  </div>
+
+  <script>
+    // const validKeys = ["detmacro1", "memHanhTran", "hphongioscheat", "XuanSang"];
+
+    document.getElementById('activateKey').addEventListener('click', () => {
+      const key = document.getElementById('keyInput').value.trim();
+      if (validKeys.includes(key)) {
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('errorMessage').style.display = 'none';
+      } else {
+        document.getElementById('errorMessage').style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+      }
+    });
+
+
+    function createFireworks(toggle) {
+      const rect = toggle.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      for (let i = 0; i < 6; i++) {
+        const star = document.createElement("div");
+        star.className = "star";
+        star.textContent = "⭐";
+
+        const angle = (Math.PI * 2 / 6) * i;
+        const distance = 40 + Math.random() * 20;
+        const dx = Math.cos(angle) * distance + "px";
+        const dy = Math.sin(angle) * distance + "px";
+
+        star.style.setProperty("--dx", dx);
+        star.style.setProperty("--dy", dy);
+
+        star.style.left = centerX + "px";
+        star.style.top = centerY + "px";
+
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), 1000);
+      }
+    }
+
+    // toggle + hiệu ứng
+    document.querySelectorAll(".toggle").forEach(toggle => {
+      toggle.addEventListener("click", () => {
+        toggle.classList.toggle("on");
+        createFireworks(toggle);
+      });
+    });
+
+    
+    class GameAssistManager {
+      constructor(config) {
+        this.config = config;
+        this.state = {};
+        this.init();
+      }
+      init() {
+        document.querySelectorAll(".toggle[data-gun]").forEach(toggle => {
+          const gun = toggle.dataset.gun;
+          const saved = localStorage.getItem(this._key(gun));
+          if (saved === "true") {
+            toggle.classList.add("on");
+            this.state[gun] = true;
+          } else {
+            this.state[gun] = false;
+          }
+          toggle.addEventListener("click", () => {
+            const isOn = toggle.classList.contains("on");
+            this.state[gun] = isOn;
+            localStorage.setItem(this._key(gun), isOn);
+            this.applyAssist(gun, isOn);
+          });
+        });
+      }
+      _key(gun) { return `bamTam_${gun}`; }
+      applyAssist(gun, enabled) {
+        const cfg = this.config[gun];
+        if (!cfg) return;
+        if (enabled) {
+          console.log(`%c[ON] ${gun}: Bám tâm ${cfg.bamTam}%`, "color: #4cafef; font-weight: bold");
+        } else {
+          console.log(`%c[OFF] ${gun}: Hỗ trợ đã tắt`, "color: #f44336; font-weight: bold");
+        }
+      }
+      setAssistLevel(gun, percent) {
+        if (this.config[gun]) {
+          this.config[gun].bamTam = percent;
+          console.log(`%c${gun} bám tâm setting ${percent}%`, "color: #ffc107; font-style: italic");
+          if (this.state[gun]) this.applyAssist(gun, true);
+        }
+      }
+      getState(gun) { return this.state[gun] || false; }
+    }
+
+    const assistManager = new GameAssistManager({
+      "UMP":   { bamTam: 100 },
+      "MP40":  { bamTam: 100 },
+      "M1887": { bamTam: 100 },
+      "DESERT EAGLE": { bamTam: 40 }
+    });
+    assistManager.setAssistLevel("UMP", 55);
+  </script>
+</body>
+</html>
+</body>
+</html>
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Menu Hthanh Cheat</title>
+<style>
+  body {
+    background: #0f1724;
+    color: #fff;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  .toggle-box {
+    background: #111827;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+
+  .toggle label {
+    font-size: 16px;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0;
+    right: 0; bottom: 0;
+    background-color: #333;
+    transition: .4s;
+    border-radius: 30px;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  input:checked + .slider {
+    background-color: #10b981;
+    box-shadow: 0 0 8px #10b981;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(24px);
+  }
+</style>
+</head>
+<body>
+
+<div class="toggle-box">
+  <div class="toggle">
+    <label>Chams</label>
+    <label class="switch">
+      <input type="checkbox" id="chams">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="toggle">
+    <label>Telekill</label>
+    <label class="switch">
+      <input type="checkbox" id="telekill">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="toggle">
+    <label>Auto Aim Đầu</label>
+    <label class="switch">
+      <input type="checkbox" id="aim">
+      <span class="slider"></span>
+    </label>
+  </div>
+</div>
+
+<script>
+  const chams = document.getElementById("chams");
+  const telekill = document.getElementById("telekill");
+  const aim = document.getElementById("aim");
+
+  // Ví dụ: bật/tắt sẽ log ra console
+  chams.addEventListener("change", () => {
+    console.log("Chams: " + (chams.checked ? "ON" : "OFF"));
+  });
+
+  telekill.addEventListener("change", () => {
+    console.log("Telekill: " + (telekill.checked ? "ON" : "OFF"));
+  });
+
+  aim.addEventListener("change", () => {
+    console.log("Auto Aim Đầu: " + (aim.checked ? "ON" : "OFF"));
+  });
+</script>
+
+</body>
+</html>
